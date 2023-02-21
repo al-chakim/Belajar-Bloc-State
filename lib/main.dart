@@ -18,10 +18,17 @@ class MyApp extends StatelessWidget {
 class Nge extends Cubit<int>{
   //Nge(super.initialState);
   Nge(): super(0);
+
+  void tambah(){
+    emit(state + 1);
+  }
+
+  void kurang(){
+    emit(state - 1);
+  }
 }
 
 class Home extends StatelessWidget {
-  Home({super.key});
 
   Nge tot = Nge();
 
@@ -30,7 +37,7 @@ class Home extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Cubit Apps'),
-        backgroundColor: Color.fromARGB(255, 83, 3, 255),
+        backgroundColor: Color.fromARGB(255, 41, 1, 128),
       ),
       body: SafeArea(
         child: ListView(
@@ -39,18 +46,33 @@ class Home extends StatelessWidget {
               margin: EdgeInsets.symmetric(horizontal: 20, vertical: 50),
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 30),
               decoration: BoxDecoration(
-                color: Color.fromARGB(255, 41, 1, 128), 
+                color: Color.fromARGB(255, 83, 3, 255), 
                 borderRadius: BorderRadius.circular(10)
               ),
               child: Center(
                 child: Column(
                   children: [
-                    Text(
-                      '0',
-                      style: TextStyle(
-                        fontSize: 70,
-                        color: Colors.white
-                      ),
+                    StreamBuilder(
+                      stream: tot.stream,
+                      builder: (context, snapshot){
+                        if(snapshot.connectionState == ConnectionState.waiting){
+                          return Text(
+                            '0',
+                            style: TextStyle(
+                              fontSize: 70,
+                              color: Colors.white
+                            ),
+                          );
+                        } else {
+                          return Text(
+                            '${snapshot.data}',
+                            style: TextStyle(
+                              fontSize: 70,
+                              color: Colors.white
+                            ),
+                          );
+                        }
+                      }
                     ),
                     SizedBox(height: 25,),
                     Row(
@@ -64,7 +86,9 @@ class Home extends StatelessWidget {
                             borderRadius: BorderRadius.circular(50)
                           ),
                           child: IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              tot.kurang();
+                            },
                             icon: Icon(Icons.remove)
                           ),
                         ),
@@ -76,7 +100,9 @@ class Home extends StatelessWidget {
                             borderRadius: BorderRadius.circular(50)
                           ),
                           child: IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              tot.tambah();
+                            },
                             icon: Icon(Icons.add)
                           ),
                         ),
