@@ -17,7 +17,10 @@ class MyApp extends StatelessWidget {
 
 class Nge extends Cubit<int>{
   //Nge(super.initialState);
-  Nge(): super(0);
+  //Nge(): super(0);
+  Nge({this.angkaCounter = 0}): super(angkaCounter);
+
+  int angkaCounter;
 
   void tambah(){
     emit(state + 1);
@@ -30,7 +33,7 @@ class Nge extends Cubit<int>{
 
 class Home extends StatelessWidget {
 
-  Nge tot = Nge();
+  Nge tot = Nge(angkaCounter: 0);
 
   @override
   Widget build(BuildContext context) {
@@ -53,25 +56,16 @@ class Home extends StatelessWidget {
                 child: Column(
                   children: [
                     StreamBuilder(
+                      initialData: tot.angkaCounter,
                       stream: tot.stream,
                       builder: (context, snapshot){
-                        if(snapshot.connectionState == ConnectionState.waiting){
-                          return Text(
-                            '0',
-                            style: TextStyle(
-                              fontSize: 70,
-                              color: Colors.white
-                            ),
-                          );
-                        } else {
-                          return Text(
-                            '${snapshot.data}',
-                            style: TextStyle(
-                              fontSize: 70,
-                              color: Colors.white
-                            ),
-                          );
-                        }
+                        return Text(
+                          '${snapshot.data}',
+                          style: TextStyle(
+                            fontSize: 70,
+                            color: Colors.white
+                          ),
+                        );
                       }
                     ),
                     SizedBox(height: 25,),
