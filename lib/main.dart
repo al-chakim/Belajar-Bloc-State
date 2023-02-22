@@ -33,7 +33,7 @@ class Nge extends Cubit<int>{
 
 class Home extends StatelessWidget {
 
-  Nge tot = Nge(angkaCounter: 0);
+  Nge tot = Nge();
 
   @override
   Widget build(BuildContext context) {
