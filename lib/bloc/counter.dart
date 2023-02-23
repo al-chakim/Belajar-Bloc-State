@@ -7,6 +7,8 @@ class Nge extends Cubit<int> {
 
   void increm() => emit(state + 1);
 
+  void reset() => emit(0);
+
   void decrem() => emit(state - 1);
 
   @override

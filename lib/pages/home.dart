@@ -9,26 +9,33 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Bloc Apps'),
-        backgroundColor: Color.fromARGB(255, 11, 19, 159),
+        title: const Text('Bloc Apps'),
+        backgroundColor: const Color.fromARGB(255, 11, 19, 159),
       ),
       body: SafeArea(
           child: ListView(
         children: [
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 20, vertical: 50),
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 30),
+            margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 50),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
             decoration: BoxDecoration(
-                color: Color.fromARGB(255, 83, 3, 255),
+                color: const Color.fromARGB(255, 83, 3, 255),
                 borderRadius: BorderRadius.circular(10)),
             child: Column(
               children: [
                 BlocBuilder<Nge, int>(
                   bloc: tot,
+                  // buildWhen: (previous, current) {
+                  //   if (current % 2 == 0) {
+                  //     return true;
+                  //   } else {
+                  //     return false;
+                  //   }
+                  // },
                   builder: (context, state) {
                     return Text(
                       '$state',
-                      style: TextStyle(fontSize: 60, color: Colors.white),
+                      style: const TextStyle(fontSize: 60, color: Colors.white),
                     );
                   },
                 ),
@@ -42,7 +49,7 @@ class Home extends StatelessWidget {
                 //     );
                 //   },
                 // ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Row(
@@ -58,7 +65,19 @@ class Home extends StatelessWidget {
                           onPressed: () {
                             tot.decrem();
                           },
-                          icon: Icon(Icons.remove)),
+                          icon: const Icon(Icons.remove)),
+                    ),
+                    Container(
+                      height: 60,
+                      width: 60,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(50)),
+                      child: IconButton(
+                          onPressed: () {
+                            tot.reset();
+                          },
+                          icon: const Icon(Icons.restore)),
                     ),
                     Container(
                       height: 60,
@@ -70,7 +89,7 @@ class Home extends StatelessWidget {
                           onPressed: () {
                             tot.increm();
                           },
-                          icon: Icon(Icons.add)),
+                          icon: const Icon(Icons.add)),
                     ),
                   ],
                 )
